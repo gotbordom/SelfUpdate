@@ -7,48 +7,22 @@ project(SelfUpdate VERSION ${PROJECT_VERSION})
 # Configured header
 configure_file(include/selfupdate/config.h.in include/selfupdate/config.h) 
 
-# Adding build flags 
-option(BUILD_SELF_UPDATE_UNIT_TESTS "Build Self Update App Unit Tests" OFF) # Turn on later when I have them
-option(BUILD_SELF_UPDATE_BENCHMARKS "Build Self Update App Benchmarks" OFF)
-
-### Set source groups
-
-##############
-# BENCHMARKS
-##############
-
-##############
-# TESTS
-##############
-
-##############
-# UI
-##############
-
-##############
-# UPDATE
-##############
-
-##############
-# UTILS
-##############
-
 ##############
 # VERSION
 ##############
 
+set(version_SRCS 
+  include/selfupdate/version/version.hpp
+)
+source_group(version FILES ${version_SRCS})
+set(SOURCES ${SOURCES} ${version_SRCS})
+
 ### Add the exe
-add_executable(SelfUpdate_${PROJECT_VERSION} src/main.cpp)
+include_directories(include)
 
-### Setup library
-# Likely won't need these either... but might as well put it here for future use
-
-### Setup dependancies
-# Don't really have any atm
-# target_link_libraries()
-
-### Exporting includes
-# Shouldn't need to for this project
+set(exeName SelfUpdate_${PROJECT_VERSION})
+set(SOURCES src/main.cpp ${SOURCES})
+add_executable(${exeName} ${SOURCES})
 
 ### Setup Unit Tests
 # Once I have some add a library for them with the source group from above

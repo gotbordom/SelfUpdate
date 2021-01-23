@@ -2,22 +2,42 @@
 #define VERSION_3886f3db_1d98_4946_8f43_60a0dd8f80b4
 
 #include <iostream>
+#include <sstream>
+#include <vector>
 #include <string>
 
 namespace SelfUpdate { namespace Version {
 
-class Version
+std::vector<std::string> split(const std::string& s, char delimiter)
+{
+   std::vector<std::string> tokens;
+   std::string token;
+   std::stringstream tokenStream(s);
+   while (std::getline(tokenStream, token, delimiter))
+   {
+      tokens.push_back(token);
+   }
+   return tokens;
+}
+
+class VersionData
 {
 public:
     // Create a version object from a given filename
-    Version(const std::string filename);
+    VersionData(std::string filename)
+    {
+        // TODO: When I have time, replace this with Boost::Split
+        // TODO: Also test this because this is assuming the filename never changes
+        auto firstSplit = split(filename, '_');
+        auto secondSplit = split(firstSplit.back(), '.');
+        major_ = std::stoi(secondSplit[0]);
+        minor_ = std::stoi(secondSplit[1]);
+        patch_ = std::stoi(secondSplit[2]);
+    }
     
-    Version(int major, int minor, int patch)
-        : major_(major), minor_(minor_), patch_(patch) 
+    VersionData(int major, int minor, int patch)
+        : major_(major), minor_(minor), patch_(patch) 
     {}
-
-    // Default destructor
-    ~Version();
 
     // Get the full version as a string
     std::string getVersionString()
@@ -33,10 +53,20 @@ public:
         return major_;
     }
 
+    void setMajor(int major)
+    {
+        major_ = major;
+    }
+    
     // Get the minor version number
     int getMinor()
     {
         return minor_;
+    }
+
+    void setMinor(int minor)
+    {
+        minor_ = minor;
     }
 
     // Get the patch number
@@ -45,17 +75,40 @@ public:
         return patch_;
     }
 
+    void setPatch(int patch)
+    {
+        patch_ = patch;
+    }
+
     // Check equality of two version objects
-    bool operator==(const Version &rhs)
+    bool operator==(const VersionData &rhs)
     {
         // TODO: Atually implement this
         return true;
     }
 
     // Check inequaity of two version objects
-    bool operator!=(const Version &rhs)
+    bool operator!=(const VersionData &rhs)
     {
         return !operator==(rhs);
+    }
+
+    // Greater than equal operator
+    bool operator>=(const VersionData &rhs)
+    {
+        // Major * 100 + minor * 10 + patch assumes a fixed amount for each 
+        // so ... something else...
+        bool isMajorGTE = major_ >= rhs.major_;
+        bool isMinorGTE = minor_ >= rhs.minor_; 
+        bool isPatchGTE = patch_ >= rhs.patch_;
+
+        return (isPatchGTE && isMinorGTE && isMajorGTE);
+    }
+
+    // Less than operator
+    bool operator<(const VersionData &rhs)
+    {
+        return !operator>=(rhs);
     }
 
 private:
