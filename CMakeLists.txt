@@ -1,21 +1,12 @@
+cmake_minimum_required(VERSION 3.11)
+project(SelfUpdate VERSION 1.0.0)
+
+# Configured header
+configure_file(include/selfupdate/config.h.in include/selfupdate/config.h) 
+
 # Adding build flags 
 option(BUILD_SELF_UPDATE_UNIT_TESTS "Build Self Update App Unit Tests" OFF) # Turn on later when I have them
 option(BUILD_SELF_UPDATE_BENCHMARKS "Build Self Update App Benchmarks" OFF)
-
-# Setup building on UNIX or Windows (Currenly I dont have a IOS or IOS VM)
-if (UNIX)
-  set( GCC_CPP_14_FLAGS "--std=C++14" )
-  set( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${GCC_CPP_14_FLAGS}" )
-endif(UNIX) 
-
-if(WIN32)
-  set( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -D_UNICODE -DUNICODE" )
-endif(WIN32)
-
-### Setup srcs
-set(SOURCES
-  src/main.cpp
-)
 
 ### Set source groups
 
@@ -43,8 +34,11 @@ set(SOURCES
 # VERSION
 ##############
 
+### Add the exe
+add_executable(SelfUpdate src/main.cpp)
+
 ### Setup library
-add_library( self-update STATIC ${SOURCES} )
+# Likely won't need these either... but might as well put it here for future use
 
 ### Setup dependancies
 # Don't really have any atm
@@ -63,4 +57,8 @@ add_library( self-update STATIC ${SOURCES} )
 
 ### Setup install binaries
 # Shouldn't need this for this project
+
+
+# Inlcude Directories
+include_directories(${PROJECT_BINARY_DIR})
 
