@@ -1,5 +1,8 @@
 cmake_minimum_required(VERSION 3.11)
-project(SelfUpdate VERSION 1.0.0)
+
+set(PROJECT_VERSION 1.0.1)
+
+project(SelfUpdate VERSION ${PROJECT_VERSION})
 
 # Configured header
 configure_file(include/selfupdate/config.h.in include/selfupdate/config.h) 
@@ -35,7 +38,7 @@ option(BUILD_SELF_UPDATE_BENCHMARKS "Build Self Update App Benchmarks" OFF)
 ##############
 
 ### Add the exe
-add_executable(SelfUpdate src/main.cpp)
+add_executable(SelfUpdate_${PROJECT_VERSION} src/main.cpp)
 
 ### Setup library
 # Likely won't need these either... but might as well put it here for future use
