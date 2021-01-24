@@ -49,14 +49,14 @@ public:
     EasyHandle CreateEasyHandle();
 
     // Callback method to be used in save_to_file
-    size_t write_to_file(void* contents, size_t size, size_t nmemb, void* userp);
+    static size_t write_to_file(void* contents, size_t size, size_t nmemb, void* userp);
 
     // Method to use a CURL object to save a file
     void save_to_file(CURL* curl);
 
-    void SelfUpdate::Update::Updater::set_ssl(CURL* curl);
+    void set_ssl(CURL* curl);
 
-    void SelfUpdate::Update::Updater::AcquireUpdates();
+    void AcquireUpdates();
 
 private:
     std::string url_;
