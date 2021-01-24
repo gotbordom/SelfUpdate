@@ -11,7 +11,7 @@ configure_file(include/selfupdate/config.h.in include/selfupdate/config.h)
 
 # Add curl submodule
 set(HTTP_ONLY ON)
-set(CMAKE_USE_OPENSSL OFF)
+set(CMAKE_USE_OPENSSL ON)
 set(BUILD_CURL_EXE OFF)
 set(CURL_STATICLIB ON)
 set(CURL_ZLIB OFF)
