@@ -7,6 +7,15 @@ project(SelfUpdate VERSION ${PROJECT_VERSION})
 # Configured header
 configure_file(include/selfupdate/config.h.in include/selfupdate/config.h) 
 
+# Add curl submodule
+set(HTTP_ONLY ON)
+set(CMAKE_USE_OPENSSL OFF)
+set(BUILD_CURL_EXE OFF)
+set(CURL_STATICLIB ON)
+set(CURL_ZLIB OFF)
+set(CMAKE_USE_LIBSSH2 OFF)  
+add_subdirectory(curl)
+
 ##############
 # UPDATER
 ##############
@@ -33,6 +42,7 @@ include_directories(include)
 set(exeName SelfUpdate_${PROJECT_VERSION})
 set(SOURCES src/main.cpp ${SOURCES})
 add_executable(${exeName} ${SOURCES})
+target_link_libraries(${exeName} curl)
 
 ### Setup Unit Tests
 # Once I have some add a library for them with the source group from above
