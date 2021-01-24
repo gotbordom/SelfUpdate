@@ -61,7 +61,7 @@ namespace SelfUpdate { namespace Update {
         std::list<EasyHandle> handles(3);
         try
         {
-            std::for_each(handles.begin(), handles.end(), [&](auto& handle) 
+            std::for_each(handles.begin(), handles.end(), [&](EasyHandle& handle) 
             {
                 handle = CreateEasyHandle(); 
             });

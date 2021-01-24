@@ -4,16 +4,14 @@
 class VersionTest : public::testing::Test
 {
 protected:
-    virtual void SetUp()
-    {
-        versionDataFromInts_ = SelfUpdate::Version::VersionData(1,2,3);
-        versionDataFromStr_ = SelfUpdate::Version::VersionData(
-            "ThisIsATest_2.3.4.exe");    
-    }
+    virtual void SetUp() {}
 
-    SelfUpdate::Version::VersionData versionDataFromInts_;
-    SelfUpdate::Version::VersionData versionDataFromStr_;
-    SelfUpdate::Version::VersionData version100_;
+    SelfUpdate::Version::VersionData versionDataFromInts_ = 
+        SelfUpdate::Version::VersionData(1,2,3);
+    SelfUpdate::Version::VersionData versionDataFromStr_ = 
+        SelfUpdate::Version::VersionData("ThisIsATest_2.3.4.exe");;
+    SelfUpdate::Version::VersionData version100_ = 
+        SelfUpdate::Version::VersionData(0,0,0);
 
 };
 

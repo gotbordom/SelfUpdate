@@ -37,6 +37,7 @@ set(SOURCES ${SOURCES} ${update_SRCS})
 
 set(version_SRCS 
   include/selfupdate/version/version.hpp
+  src/version/version.cpp
 )
 source_group(version FILES ${version_SRCS})
 set(SOURCES ${SOURCES} ${version_SRCS})
