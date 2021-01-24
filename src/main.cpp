@@ -1,5 +1,6 @@
 // Project Includes
 #include <selfupdate/version/version.hpp>
+#include <selfupdate/update/update.hpp>
 
 // CPP Includes
 #include <iostream>
@@ -44,7 +45,15 @@ void printDetails()
 int main()
 {
 
-    // On startup look ofr update
+    
+    // On startup look for update
+    auto currentVersionData = SelfUpdate::Version::VersionData(
+      std::stoi(PROJECT_VERSION_MAJOR),
+      std::stoi(PROJECT_VERSION_MINOR),
+      std::stoi(PROJECT_VERSION_PATCH));
+    auto updater = SelfUpdate::Update::Updater("SomeGitUrl", currentVersionData);
+
+
 
     std::cout << "Running some tests:" << std::endl;
     runSomeTests();

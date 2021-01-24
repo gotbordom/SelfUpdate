@@ -8,6 +8,16 @@ project(SelfUpdate VERSION ${PROJECT_VERSION})
 configure_file(include/selfupdate/config.h.in include/selfupdate/config.h) 
 
 ##############
+# UPDATER
+##############
+set(update_SRCS
+  include/selfupdate/update/update.hpp
+  src/update/update.cpp
+)
+source_group(update FILES ${update_SRCS})
+set(SOURCES ${SOURCES} ${update_SRCS})
+
+##############
 # VERSION
 ##############
 
