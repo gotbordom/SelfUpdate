@@ -83,8 +83,11 @@ public:
     // Check equality of two version objects
     bool operator==(const VersionData &rhs)
     {
-        // TODO: Atually implement this
-        return true;
+        bool isMajorEQ = major_ >= rhs.major_;
+        bool isMinorEQ = minor_ >= rhs.minor_; 
+        bool isPatchEQ = patch_ >= rhs.patch_;
+
+        return (isPatchEQ && isMinorEQ && isMajorEQ);
     }
 
     // Check inequaity of two version objects
