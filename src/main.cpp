@@ -21,12 +21,17 @@ void runSomeTests()
     std::cout << "Patch: " << versionDataFromInts.getPatch() << std::endl;
 
     std::cout << "Testing Constructor from String: " << std::endl;
-    std::string filename = "ThisIsATest_1.0.0";
+    std::string filename = "ThisIsATest_1.0.1";
     auto versionDataFromStr = SelfUpdate::Version::VersionData(filename);
     std::cout << "Major: " << versionDataFromStr.getMajor() << std::endl;
     std::cout << "Minor: " << versionDataFromStr.getMinor() << std::endl;
     std::cout << "Patch: " << versionDataFromStr.getPatch() << std::endl;
 
+    std::cout << "Testing equality operators" << std::endl;
+    std::cout << "FromStr >= FromInts: " 
+        << std::to_string(versionDataFromStr >= versionDataFromInts) << std::endl;
+
+    
 }
 
 void printDetails()
